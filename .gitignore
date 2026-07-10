@@ -7,6 +7,10 @@
 *.tar.gz
 *.rar
 
+*.docx
+*.pdf
+*.pptx
+
 # Sources and temps
 /agents/source
 /agents/temp

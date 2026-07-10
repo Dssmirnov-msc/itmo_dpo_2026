@@ -3,3 +3,6 @@
 ## 2026-07-10
 
 - Этап 0: добавлены базовые файлы `target/README.md`, `target/FOS_BRIEF.md`, `target/LICENSE` на основе видения курса "Моделирование динамических систем".
+- Этап 1: добавлен черновой шаблон РПД `target/RPD_TEMPLATE.md` в формате Markdown на основе постановки задания и образцов РПД из `source`.
+- Этап 1: создана DOCX-версия шаблона РПД `target/RPD_TEMPLATE.docx` из актуального Markdown-файла.
+- Этап 1: добавлен скрипт `scripts/build_rpd_docx.ps1` для повторной сборки `target/RPD.docx` из `target/RPD.md`.
