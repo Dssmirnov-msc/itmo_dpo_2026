@@ -1,0 +1,12 @@
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Sources and temps
+/agents/source
+/agents/temp
