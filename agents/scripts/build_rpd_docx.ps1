@@ -23,5 +23,8 @@ if (-not (Test-Path -LiteralPath $Source)) {
 }
 
 pandoc $Source -o $Output --from markdown --to docx
+if ($LASTEXITCODE -ne 0) {
+    throw "pandoc failed with exit code $LASTEXITCODE"
+}
 
 Write-Host "DOCX created: $Output"
