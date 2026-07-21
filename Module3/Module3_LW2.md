@@ -256,6 +256,16 @@ $$ \varepsilon_{L\infty} = \max_k \left|u_{true}(x_k,t_k)-\hat{u}(x_k,t_k)\right
 2.  Jagtap A. D., Karniadakis G. E. *Extended physics-informed neural networks (XPINNs): A generalized space-time domain decomposition based deep learning framework for nonlinear partial differential equations* // Communications in Computational Physics. 2020. Vol. 28, no. 5. P. 2002-2041.
 3.  Документация и репозиторий проекта DeepXDE. URL: <https://github.com>
 
-## 8.2. Python
+## 8.2. Библиотеки Python
+
+**Обязательные:**
+
+-   `numpy`, `scipy` — численные методы;
+-   `torch` или `tensorflow` — нейронные сети;
+-   `matplotlib`, `seaborn` — визуализация.
+
+**Дополнительные:**
+
+-   `deepxde` — DeepONet и PINNs.
 
 ------------------------------------------------------------------------
