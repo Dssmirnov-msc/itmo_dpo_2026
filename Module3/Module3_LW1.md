@@ -218,6 +218,15 @@ $$ \varepsilon_{\text{param}} = \frac{ \left|\text{параметр}_{\text{true
 2.  Открытый репозиторий туториалов NABLA-SciML. URL: <https://github.com>
 3.  Воркшоп по моделированию осциллятора (Introduction to PINNs). URL: <https://github.com>
 
-## 8.2. Python
+## 8.2. Библиотеки Python
 
+**Обязательные:**
+
+-   `numpy`, `scipy` — численные методы;
+-   `torch` или `tensorflow` — нейронные сети;
+-   `matplotlib`, `seaborn` — визуализация.
+
+**Дополнительные:**
+
+-   `deepxde` — DeepONet и PINNs.
 ------------------------------------------------------------------------
