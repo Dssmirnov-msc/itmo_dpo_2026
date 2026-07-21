@@ -113,57 +113,35 @@
 
 Для регулирования процесса используется расход охлаждающей жидкости:
 
-\[
-q(t).
-\]
+$$ q(t). $$
 
 Наблюдаемыми выходами являются:
 
-\[
-C_A(t)
-\]
+$$ C_A(t) $$
 
 — концентрация реагента, моль/л, и
 
-\[
-T(t)
-\]
+$$ T(t) $$
 
 — температура реакционной смеси, К.
 
 Вектор состояния:
 
-\[
-\mathbf{x}(t)=
-\begin{bmatrix}
-C_A(t)\\
-T(t)
-\end{bmatrix},
-\]
+$$ \mathbf{x}(t)= \begin{bmatrix} C_A(t)\\ T(t) \end{bmatrix}, $$
 
 управляющий вход:
 
-\[
-\mathbf{u}(t)=q(t).
-\]
+$$ \mathbf{u}(t)=q(t). $$
 
 Требуется восстановить:
 
-\[
-\dot{\mathbf{x}}
-=
-\mathbf{f}(\mathbf{x},\mathbf{u}),
-\]
+$$ \dot{\mathbf{x}} = \mathbf{f}(\mathbf{x},\mathbf{u}), $$
 
 то есть:
 
-\[
-\frac{dC_A}{dt}=f(C_A,T,q),
-\]
+$$ \frac{dC_A}{dt}=f(C_A,T,q), $$
 
-\[
-\frac{dT}{dt}=g(C_A,T,q).
-\]
+$$ \frac{dT}{dt}=g(C_A,T,q). $$
 
 ## 2.2. Исходный набор данных
 
@@ -174,9 +152,7 @@ T(t)
 - два выхода \(C_A\) и \(T\);
 - шаг дискретизации:
 
-\[
-\Delta t=0{,}1\ \text{мин}.
-\]
+$$ \Delta t=0{,}1\ \text{мин}. $$
 
 | Переменная | Содержание | Единица |
 |---|---|---|
@@ -190,58 +166,27 @@ T(t)
 
 Формируются:
 
-\[
-X=
-\begin{bmatrix}
-C_A(t_1) & T(t_1)\\
-\vdots & \vdots\\
-C_A(t_N) & T(t_N)
-\end{bmatrix},
-\qquad
-U=
-\begin{bmatrix}
-q(t_1)\\
-\vdots\\
-q(t_N)
-\end{bmatrix},
-\]
+$$ X= \begin{bmatrix} C_A(t_1) & T(t_1)\\ \vdots & \vdots\\ C_A(t_N) & T(t_N) \end{bmatrix}, \qquad U= \begin{bmatrix} q(t_1)\\ \vdots\\ q(t_N) \end{bmatrix}, $$
 
-\[
-\dot X=
-\begin{bmatrix}
-\dot C_A(t_1) & \dot T(t_1)\\
-\vdots & \vdots\\
-\dot C_A(t_N) & \dot T(t_N)
-\end{bmatrix}.
-\]
+$$ \dot X= \begin{bmatrix} \dot C_A(t_1) & \dot T(t_1)\\ \vdots & \vdots\\ \dot C_A(t_N) & \dot T(t_N) \end{bmatrix}. $$
 
 На основе состояний и управления строится библиотека:
 
-\[
-\Theta(X,U).
-\]
+$$ \Theta(X,U). $$
 
 SINDYc ищет разреженную матрицу коэффициентов:
 
-\[
-\dot X\approx\Theta(X,U)\Xi.
-\]
+$$ \dot X\approx\Theta(X,U)\Xi. $$
 
 ## 2.4. Модель S0 — линейная
 
-\[
-\Theta_0=[1,C_A,T,q].
-\]
+$$ \Theta_0=[1,C_A,T,q]. $$
 
 Получаются уравнения:
 
-\[
-\dot C_A=\xi_{10}+\xi_{11}C_A+\xi_{12}T+\xi_{13}q,
-\]
+$$ \dot C_A=\xi_{10}+\xi_{11}C_A+\xi_{12}T+\xi_{13}q, $$
 
-\[
-\dot T=\xi_{20}+\xi_{21}C_A+\xi_{22}T+\xi_{23}q.
-\]
+$$ \dot T=\xi_{20}+\xi_{21}C_A+\xi_{22}T+\xi_{23}q. $$
 
 Модель используется как базовый вариант.
 
@@ -249,18 +194,11 @@ SINDYc ищет разреженную матрицу коэффициентов
 
 Для степени 2:
 
-\[
-\Theta_1=
-[
-1,C_A,T,q,C_A^2,C_AT,C_Aq,T^2,Tq,q^2
-].
-\]
+$$ \Theta_1= [ 1,C_A,T,q,C_A^2,C_AT,C_Aq,T^2,Tq,q^2 ]. $$
 
 Необходимо сравнить:
 
-\[
-p=1,\quad p=2,\quad p=3.
-\]
+$$ p=1,\quad p=2,\quad p=3. $$
 
 Слишком высокая степень увеличивает число коррелирующих функций и риск неустойчивости.
 
@@ -268,31 +206,19 @@ p=1,\quad p=2,\quad p=3.
 
 Для экзотермического реактора полезно включить функции, мотивированные температурной зависимостью скорости реакции:
 
-\[
-1,\quad C_A,\quad T,\quad q,\quad C_Aq,\quad Tq,
-\]
+$$ 1,\quad C_A,\quad T,\quad q,\quad C_Aq,\quad Tq, $$
 
-\[
-\frac{1}{T},
-\]
+$$ \frac{1}{T}, $$
 
-\[
-\exp\left(-\frac{\kappa_j}{T}\right),
-\]
+$$ \exp\left(-\frac{\kappa_j}{T}\right), $$
 
-\[
-C_A\exp\left(-\frac{\kappa_j}{T}\right),
-\]
+$$ C_A\exp\left(-\frac{\kappa_j}{T}\right), $$
 
 где \(\kappa_j\) задаются преподавателем.
 
 Рекомендуется использовать 3–5 значений \(\kappa_j\). Альтернативно можно нормировать обратную температуру:
 
-\[
-z_T=
-\frac{T^{-1}-\overline{T^{-1}}}
-{s_{T^{-1}}},
-\]
+$$ z_T= \frac{T^{-1}-\overline{T^{-1}}} {s_{T^{-1}}}, $$
 
 и использовать \(\exp(a_jz_T)\) и \(C_A\exp(a_jz_T)\).
 
@@ -308,11 +234,7 @@ z_T=
 
 Для ансамбля можно оценить частоту выбора функции:
 
-\[
-p_j=
-\frac{\text{число моделей, включивших функцию }j}
-{\text{общее число моделей}}.
-\]
+$$ p_j= \frac{\text{число моделей, включивших функцию }j} {\text{общее число моделей}}. $$
 
 ## 2.8. Разреженная регрессия
 
@@ -377,9 +299,7 @@ data(cstrData)
 3. Проверить диапазоны.
 4. Сформировать время:
 
-\[
-t_k=k\Delta t,\qquad \Delta t=0{,}1.
-\]
+$$ t_k=k\Delta t,\qquad \Delta t=0{,}1. $$
 
 5. Проверить повторяющиеся и резкие значения.
 
@@ -421,9 +341,7 @@ t_k=k\Delta t,\qquad \Delta t=0{,}1.
 - исходные физические единицы;
 - стандартизованные переменные:
 
-\[
-z_j=\frac{x_j-\overline{x}_j}{s_j}.
-\]
+$$ z_j=\frac{x_j-\overline{x}_j}{s_j}. $$
 
 При работе в нормированных координатах это должно быть явно указано.
 
@@ -433,9 +351,7 @@ z_j=\frac{x_j-\overline{x}_j}{s_j}.
 
 ### Центральные разности
 
-\[
-\dot x_k\approx\frac{x_{k+1}-x_{k-1}}{2\Delta t}.
-\]
+$$ \dot x_k\approx\frac{x_{k+1}-x_{k-1}}{2\Delta t}. $$
 
 ### Savitzky–Golay
 
@@ -470,9 +386,7 @@ z_j=\frac{x_j-\overline{x}_j}{s_j}.
    - успешность интегрирования.
 4. Построить график:
 
-\[
-\text{ошибка}\quad\text{против}\quad\text{числа членов}.
-\]
+$$ \text{ошибка}\quad\text{против}\quad\text{числа членов}. $$
 
 ## 3.9. Построение S2
 
@@ -506,11 +420,7 @@ z_j=\frac{x_j-\overline{x}_j}{s_j}.
 
 Решить:
 
-\[
-\dot{\mathbf{x}}=\widehat{\mathbf{f}}(\mathbf{x},q(t)),
-\qquad
-\mathbf{x}(t_0)=\mathbf{x}_0.
-\]
+$$ \dot{\mathbf{x}}=\widehat{\mathbf{f}}(\mathbf{x},q(t)), \qquad \mathbf{x}(t_0)=\mathbf{x}_0. $$
 
 Построить:
 
@@ -526,47 +436,29 @@ z_j=\frac{x_j-\overline{x}_j}{s_j}.
 
 Ошибка производных:
 
-\[
-RMSE_{\dot x}
-=
-\sqrt{\frac{1}{N}\sum(\dot x_k-\widehat{\dot x}_k)^2}.
-\]
+$$ RMSE_{\dot x} = \sqrt{\frac{1}{N}\sum(\dot x_k-\widehat{\dot x}_k)^2}. $$
 
 Ошибка траектории:
 
-\[
-RMSE_x
-=
-\sqrt{\frac{1}{N}\sum(x_k-\widehat x_k)^2}.
-\]
+$$ RMSE_x = \sqrt{\frac{1}{N}\sum(x_k-\widehat x_k)^2}. $$
 
 Нормированная ошибка:
 
-\[
-NRMSE=\frac{RMSE}{x_{\max}-x_{\min}}.
-\]
+$$ NRMSE=\frac{RMSE}{x_{\max}-x_{\min}}. $$
 
 Сложность:
 
-\[
-K=\|\Xi\|_0.
-\]
+$$ K=\|\Xi\|_0. $$
 
 Допускается AIC:
 
-\[
-AIC=N\ln\left(\frac{RSS}{N}\right)+2K.
-\]
+$$ AIC=N\ln\left(\frac{RSS}{N}\right)+2K. $$
 
 ## 3.14. Исследование шума
 
 Добавить:
 
-\[
-\widetilde x=x+\varepsilon,
-\qquad
-\varepsilon\sim\mathcal N(0,\sigma^2).
-\]
+$$ \widetilde x=x+\varepsilon, \qquad \varepsilon\sim\mathcal N(0,\sigma^2). $$
 
 Рекомендуемые уровни:
 
@@ -772,9 +664,7 @@ time,q,Ca,T
 
 где:
 
-\[
-time_k=0{,}1k.
-\]
+$$ time_k=0{,}1k. $$
 
 Можно приложить исходный файл, очищенный CSV и шаблон ноутбука.
 
@@ -843,23 +733,13 @@ time_k=0{,}1k.
 
 Порог нельзя выбирать только по обучающей ошибке. Можно использовать:
 
-\[
-J(\lambda)
-=
-NRMSE_{\mathrm{trajectory,val}}
-+
-\eta\frac{K(\lambda)}{K_{\max}}
-+
-P_{\mathrm{unstable}}.
-\]
+$$ J(\lambda) = NRMSE_{\mathrm{trajectory,val}} + \eta\frac{K(\lambda)}{K_{\max}} + P_{\mathrm{unstable}}. $$
 
 ## 7.10. Физическая допустимость
 
 Следует контролировать:
 
-\[
-C_A\geq0,
-\]
+$$ C_A\geq0, $$
 
 а также диапазон температуры. Не следует обрезать прогноз до расчёта метрик: это скрывает неустойчивость.
 

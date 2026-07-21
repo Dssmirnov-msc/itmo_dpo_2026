@@ -88,72 +88,37 @@
 
 **Вариант А. Уравнение Бюргерса с исчезающей вязкостью (модель ударной волны):**
 
-$$
-\frac{\partial u}{\partial t}
-+ u \frac{\partial u}{\partial x}
-=
-\nu \frac{\partial^2 u}{\partial x^2},
-\quad
-x \in [-1,1],
-\quad
-t \in [0,1].
-$$
+$$ \frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} = \nu \frac{\partial^2 u}{\partial x^2}, \quad x \in [-1,1], \quad t \in [0,1]. $$
 
 Жёсткий режим задаётся малым параметром вязкости: $\nu = 0.001$ или $\nu = 0.0005$.
 
 Начальное условие:
 
-$$
-u(x,0)=-\sin(\pi x).
-$$
+$$ u(x,0)=-\sin(\pi x). $$
 
 Граничные условия:
 
-$$
-u(-1,t)=u(1,t)=0.
-$$
+$$ u(-1,t)=u(1,t)=0. $$
 
 **Вариант Б. Высокочастотное уравнение Пуассона-Больцмана (сингулярный потенциал):**
 
-$$
-\frac{d^2u}{dx^2}
-=
-\omega^2 \sin(u),
-\quad
-x \in [0,1].
-$$
+$$ \frac{d^2u}{dx^2} = \omega^2 \sin(u), \quad x \in [0,1]. $$
 
 Жёсткий режим задаётся высокой частотой: $\omega = 8\pi$ или $\omega = 16\pi$.
 
 Граничные условия:
 
-$$
-u(0)=0,
-\quad
-u(1)=1.
-$$
+$$ u(0)=0, \quad u(1)=1. $$
 
 ## 2.3. Целевой функционал потерь (Loss) базовой модели
 
 Пусть $\hat{u}(x,t;\theta)$ — предсказание нейросети с весами $\theta$. Loss стандартного PINN формулируется как:
 
-$$
-\mathcal{L}(\theta)
-=
-\lambda_{pde}\mathcal{L}_{pde}(\theta)
-+ \lambda_{bc}\mathcal{L}_{bc}(\theta)
-+ \lambda_{ic}\mathcal{L}_{ic}(\theta).
-$$
+$$ \mathcal{L}(\theta) = \lambda_{pde}\mathcal{L}_{pde}(\theta) + \lambda_{bc}\mathcal{L}_{bc}(\theta) + \lambda_{ic}\mathcal{L}_{ic}(\theta). $$
 
 Невязка уравнения на множестве из $N_f$ коллокационных точек рассчитывается как:
 
-$$
-\mathcal{L}_{pde}(\theta)
-=
-\frac{1}{N_f}
-\sum_{i=1}^{N_f}
-\left|R(x_i,t_i;\theta)\right|^2.
-$$
+$$ \mathcal{L}_{pde}(\theta) = \frac{1}{N_f} \sum_{i=1}^{N_f} \left|R(x_i,t_i;\theta)\right|^2. $$
 
 ## 2.4. Требуемые результаты
 
@@ -176,23 +141,11 @@ $$
 
 1.  С помощью вложенных вызовов градиентного движка фреймворка, например `torch.autograd.grad` или `jax.grad`, получить аналитическое выражение для пространственной производной от невязки уравнения:
 
-$$
-\frac{\partial R}{\partial x}.
-$$
+$$ \frac{\partial R}{\partial x}. $$
 
 2.  Модифицировать функцию потерь, добавив регуляризатор градиента невязки:
 
-$$
-\mathcal{L}_{gpinn}(\theta)
-=
-\mathcal{L}(\theta)
-+ \lambda_g
-\frac{1}{N_f}
-\sum_{i=1}^{N_f}
-\left|
-\frac{\partial R(x_i,t_i;\theta)}{\partial x}
-\right|^2.
-$$
+$$ \mathcal{L}_{gpinn}(\theta) = \mathcal{L}(\theta) + \lambda_g \frac{1}{N_f} \sum_{i=1}^{N_f} \left| \frac{\partial R(x_i,t_i;\theta)}{\partial x} \right|^2. $$
 
 3.  Провести повторный цикл обучения и зафиксировать качественное изменение аппроксимации фронта.
 
@@ -202,20 +155,7 @@ $$
 2.  Создать две независимые нейросети $\hat{u}_1(\theta_1)$ и $\hat{u}_2(\theta_2)$, каждая из которых оперирует только в своём поддомене.
 3.  Сформулировать интерфейсный loss сшивки на границе поддоменов $x_{interface}=0$, требующий непрерывности решения и равенства его первых производных (потоков):
 
-$$
-\mathcal{L}_{interface}
-=
-\frac{1}{N_{int}}
-\sum_{j=1}^{N_{int}}
-\left(
-\left|\hat{u}_1(0,t_j)-\hat{u}_2(0,t_j)\right|^2
-+ \beta
-\left|
-\frac{\partial \hat{u}_1}{\partial x}\Big|_{0,t_j}
-- \frac{\partial \hat{u}_2}{\partial x}\Big|_{0,t_j}
-\right|^2
-\right).
-$$
+$$ \mathcal{L}_{interface} = \frac{1}{N_{int}} \sum_{j=1}^{N_{int}} \left( \left|\hat{u}_1(0,t_j)-\hat{u}_2(0,t_j)\right|^2 + \beta \left| \frac{\partial \hat{u}_1}{\partial x}\Big|_{0,t_j} - \frac{\partial \hat{u}_2}{\partial x}\Big|_{0,t_j} \right|^2 \right). $$
 
 4.  Обучить систему сетей XPINN совместно, минимизируя сумму внутренних loss-функций и loss-функции сшивки.
 
@@ -230,34 +170,15 @@ $$
 
 **Средняя абсолютная ошибка (MAE):**
 
-$$
-MAE
-=
-\frac{1}{N_{test}}
-\sum_{k=1}^{N_{test}}
-\left|u_{true}(x_k,t_k)-\hat{u}(x_k,t_k)\right|.
-$$
+$$ MAE = \frac{1}{N_{test}} \sum_{k=1}^{N_{test}} \left|u_{true}(x_k,t_k)-\hat{u}(x_k,t_k)\right|. $$
 
 **Относительная ошибка в норме** $L_2$ (L2-relative error):
 
-$$
-\varepsilon_{L2}
-=
-\frac{
-\sqrt{\sum \left|u_{true}-\hat{u}\right|^2}
-}{
-\sqrt{\sum \left|u_{true}\right|^2}
-}.
-$$
+$$ \varepsilon_{L2} = \frac{ \sqrt{\sum \left|u_{true}-\hat{u}\right|^2} }{ \sqrt{\sum \left|u_{true}\right|^2} }. $$
 
 **Максимальная локальная ошибка (**$L_\infty$):
 
-$$
-\varepsilon_{L\infty}
-=
-\max_k
-\left|u_{true}(x_k,t_k)-\hat{u}(x_k,t_k)\right|.
-$$
+$$ \varepsilon_{L\infty} = \max_k \left|u_{true}(x_k,t_k)-\hat{u}(x_k,t_k)\right|. $$
 
 ## 3.7. Требования к отчёту
 

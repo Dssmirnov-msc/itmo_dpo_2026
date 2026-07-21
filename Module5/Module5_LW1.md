@@ -84,13 +84,9 @@
 
 Динамика двигателя постоянного тока в упрощённом виде описывается системой:
 
-$$
-L\frac{di}{dt}=u-Ri-k_e\omega,
-$$
+$$ L\frac{di}{dt}=u-Ri-k_e\omega, $$
 
-$$
-J\frac{d\omega}{dt}=k_t i-b\omega-\tau_L,
-$$
+$$ J\frac{d\omega}{dt}=k_t i-b\omega-\tau_L, $$
 
 где:
 
@@ -109,9 +105,7 @@ $$
 
 Скорость из набора данных переводится из оборотов в минуту в угловую скорость:
 
-$$
-\omega=\frac{2\pi n}{60},
-$$
+$$ \omega=\frac{2\pi n}{60}, $$
 
 где $n$ — скорость в оборотах в минуту.
 
@@ -119,40 +113,15 @@ $$
 
 При шаге дискретизации $\Delta t$ используется приближение:
 
-$$
-i_{k+1}
-=
-i_k+\Delta t
-\left(
-\alpha_u u_k+
-\alpha_i i_k+
-\alpha_\omega\omega_k
-\right),
-$$
+$$ i_{k+1} = i_k+\Delta t \left( \alpha_u u_k+ \alpha_i i_k+ \alpha_\omega\omega_k \right), $$
 
-$$
-\omega_{k+1}
-=
-\omega_k+\Delta t
-\left(
-\beta_i i_k+
-\beta_\omega\omega_k+
-\beta_0
-\right).
-$$
+$$ \omega_{k+1} = \omega_k+\Delta t \left( \beta_i i_k+ \beta_\omega\omega_k+ \beta_0 \right). $$
 
 При выбранном направлении вращения и неизменном режиме нагрузки ожидаются следующие знаки коэффициентов:
 
-$$
-\alpha_u>0,\qquad
-\alpha_i<0,\qquad
-\alpha_\omega<0,
-$$
+$$ \alpha_u>0,\qquad \alpha_i<0,\qquad \alpha_\omega<0, $$
 
-$$
-\beta_i>0,\qquad
-\beta_\omega<0.
-$$
+$$ \beta_i>0,\qquad \beta_\omega<0. $$
 
 Коэффициент $\beta_0$ может учитывать постоянную составляющую нагрузки, сухое трение и другие неучтённые эффекты.
 
@@ -162,26 +131,13 @@ $$
 
 ### Модель M0 — статическая эмпирическая модель
 
-$$
-\widehat{\omega}_{k+1}=f(u_k,i_k).
-$$
+$$ \widehat{\omega}_{k+1}=f(u_k,i_k). $$
 
 Модель используется как простейший базовый вариант. Она не получает информацию о предыдущем состоянии системы и поэтому не должна полноценно воспроизводить динамику переходного процесса.
 
 ### Модель M1 — авторегрессионная эмпирическая модель
 
-$$
-\begin{bmatrix}
-\widehat{i}_{k+1}\\
-\widehat{\omega}_{k+1}
-\end{bmatrix}
-=
-f\left(
-u_k,\ldots,u_{k-L},
-i_k,\ldots,i_{k-L},
-\omega_k,\ldots,\omega_{k-L}
-\right),
-$$
+$$ \begin{bmatrix} \widehat{i}_{k+1}\\ \widehat{\omega}_{k+1} \end{bmatrix} = f\left( u_k,\ldots,u_{k-L}, i_k,\ldots,i_{k-L}, \omega_k,\ldots,\omega_{k-L} \right), $$
 
 где $L$ — число временных лагов.
 
@@ -197,36 +153,19 @@ $$
 
 Сначала вычисляется прогноз физико-инспирированной модели:
 
-$$
-\widehat{x}^{\,phys}_{k+1}
-=
-\begin{bmatrix}
-\widehat{i}^{\,phys}_{k+1}\\
-\widehat{\omega}^{\,phys}_{k+1}
-\end{bmatrix}.
-$$
+$$ \widehat{x}^{\,phys}_{k+1} = \begin{bmatrix} \widehat{i}^{\,phys}_{k+1}\\ \widehat{\omega}^{\,phys}_{k+1} \end{bmatrix}. $$
 
 Затем определяются остатки:
 
-$$
-r_{k+1}=x_{k+1}-\widehat{x}^{\,phys}_{k+1}.
-$$
+$$ r_{k+1}=x_{k+1}-\widehat{x}^{\,phys}_{k+1}. $$
 
 Регрессионная модель прогнозирует остаток:
 
-$$
-\widehat{r}_{k+1}=g(z_k),
-$$
+$$ \widehat{r}_{k+1}=g(z_k), $$
 
 а итоговый прогноз имеет вид:
 
-$$
-\widehat{x}_{k+1}
-=
-\widehat{x}^{\,phys}_{k+1}
-+
-\widehat{r}_{k+1}.
-$$
+$$ \widehat{x}_{k+1} = \widehat{x}^{\,phys}_{k+1} + \widehat{r}_{k+1}. $$
 
 В качестве признаков $z_k$ могут использоваться напряжение, ток, скорость, их лаги, приращения сигналов и выход физической модели.
 
@@ -345,31 +284,15 @@ $$
 
 1.  Сформировать приращения:
 
-$$
-\Delta i_k=i_{k+1}-i_k,
-$$
+$$ \Delta i_k=i_{k+1}-i_k, $$
 
-$$
-\Delta\omega_k=\omega_{k+1}-\omega_k.
-$$
+$$ \Delta\omega_k=\omega_{k+1}-\omega_k. $$
 
 2.  Оценить коэффициенты уравнений:
 
-$$
-\frac{\Delta i_k}{\Delta t}
-=
-\alpha_u u_k+
-\alpha_i i_k+
-\alpha_\omega\omega_k,
-$$
+$$ \frac{\Delta i_k}{\Delta t} = \alpha_u u_k+ \alpha_i i_k+ \alpha_\omega\omega_k, $$
 
-$$
-\frac{\Delta\omega_k}{\Delta t}
-=
-\beta_i i_k+
-\beta_\omega\omega_k+
-\beta_0.
-$$
+$$ \frac{\Delta\omega_k}{\Delta t} = \beta_i i_k+ \beta_\omega\omega_k+ \beta_0. $$
 
 3.  Проверить знаки оценённых коэффициентов.
 4.  Реализовать одношаговый прогноз состояния.
@@ -384,12 +307,7 @@ $$
 2.  Вычислить остатки прогноза тока и скорости.
 3.  Сформировать признаки для модели остатка. Рекомендуемый состав:
 
-$$
-u_k,\quad i_k,\quad \omega_k,\quad
-\Delta u_k,\quad \Delta i_k,\quad \Delta\omega_k,\quad
-\widehat{i}^{\,phys}_{k+1},\quad
-\widehat{\omega}^{\,phys}_{k+1}.
-$$
+$$ u_k,\quad i_k,\quad \omega_k,\quad \Delta u_k,\quad \Delta i_k,\quad \Delta\omega_k,\quad \widehat{i}^{\,phys}_{k+1},\quad \widehat{\omega}^{\,phys}_{k+1}. $$
 
 4.  Обучить модель остатка. Допускается использовать:
     -   Ridge;
@@ -403,31 +321,11 @@ $$
 
 Для тока и скорости рассчитать:
 
-$$
-MAE=
-\frac{1}{N}
-\sum_{k=1}^{N}
-|y_k-\widehat{y}_k|,
-$$
+$$ MAE= \frac{1}{N} \sum_{k=1}^{N} |y_k-\widehat{y}_k|, $$
 
-$$
-RMSE=
-\sqrt{
-\frac{1}{N}
-\sum_{k=1}^{N}
-(y_k-\widehat{y}_k)^2
-},
-$$
+$$ RMSE= \sqrt{ \frac{1}{N} \sum_{k=1}^{N} (y_k-\widehat{y}_k)^2 }, $$
 
-$$
-R^2=
-1-
-\frac{
-\sum_k(y_k-\widehat{y}_k)^2
-}{
-\sum_k(y_k-\overline{y})^2
-}.
-$$
+$$ R^2= 1- \frac{ \sum_k(y_k-\widehat{y}_k)^2 }{ \sum_k(y_k-\overline{y})^2 }. $$
 
 Результаты представить в сравнительной таблице отдельно для обучающей, валидационной и тестовой частей.
 
@@ -435,17 +333,9 @@ $$
 
 Для выбранного тестового эксперимента выполнить последовательный прогноз:
 
-$$
-\widehat{x}_{k+1}
-=
-F(\widehat{x}_k,u_k),
-$$
+$$ \widehat{x}_{k+1} = F(\widehat{x}_k,u_k), $$
 
-$$
-\widehat{x}_{k+2}
-=
-F(\widehat{x}_{k+1},u_{k+1}),
-$$
+$$ \widehat{x}_{k+2} = F(\widehat{x}_{k+1},u_{k+1}), $$
 
 и далее до конца траектории.
 

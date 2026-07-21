@@ -111,27 +111,15 @@
 
 Рассматривается **одномерная задача теплопроводности** на отрезке $x \in [0, 1]$ с **неоднородным источником тепла**:
 
-$$
-\frac{\partial u}{\partial t}
-=
-\alpha \frac{\partial^2 u}{\partial x^2} + f(x,t),
-\quad
-(x,t) \in (0,1) \times (0,T].
-$$
+$$ \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2} + f(x,t), \quad (x,t) \in (0,1) \times (0,T]. $$
 
 **Граничные условия** смешанные:
 
-$$
-u(0,t)=0,
-\quad
-\frac{\partial u}{\partial x}(1,t)=q(t).
-$$
+$$ u(0,t)=0, \quad \frac{\partial u}{\partial x}(1,t)=q(t). $$
 
 **Начальное условие**:
 
-$$
-u(x,0)=u_0(x).
-$$
+$$ u(x,0)=u_0(x). $$
 
 Где:
 
@@ -144,9 +132,7 @@ $$
 
 Определим оператор $\mathcal{G}$, который ставит в соответствие **входным функциям** — источнику, граничным условиям и начальному условию — **решение** задачи:
 
-$$
-\mathcal{G}: (f(x,t), q(t), u_0(x)) \mapsto u(x,t).
-$$
+$$ \mathcal{G}: (f(x,t), q(t), u_0(x)) \mapsto u(x,t). $$
 
 **Цель работы** — обучить **нейронный оператор** DeepONet или FNO для аппроксимации оператора $\mathcal{G}$ и сравнить его с классическими численными методами.
 
@@ -162,16 +148,7 @@ $$
 
 **Источник тепла** $f(x,t)$ — сумма гауссиан:
 
-$$
-f(x,t)
-=
-\sum_{i=1}^{3}
-A_i
-\exp\left(
--\frac{(x-\mu_i)^2}{2\sigma_i^2}
--\frac{(t-\tau_i)^2}{2\gamma_i^2}
-\right).
-$$
+$$ f(x,t) = \sum_{i=1}^{3} A_i \exp\left( -\frac{(x-\mu_i)^2}{2\sigma_i^2} -\frac{(t-\tau_i)^2}{2\gamma_i^2} \right). $$
 
 Параметры:
 
@@ -183,12 +160,7 @@ $$
 
 **Тепловой поток** $q(t)$ — сумма синусоид:
 
-$$
-q(t)
-=
-\sum_{k=1}^{2}
-B_k \sin(2\pi \omega_k t + \phi_k).
-$$
+$$ q(t) = \sum_{k=1}^{2} B_k \sin(2\pi \omega_k t + \phi_k). $$
 
 Параметры:
 
@@ -198,15 +170,7 @@ $$
 
 **Начальное условие** $u_0(x)$ — сумма гауссиан:
 
-$$
-u_0(x)
-=
-\sum_{j=1}^{2}
-C_j
-\exp\left(
--\frac{(x-\nu_j)^2}{2\delta_j^2}
-\right).
-$$
+$$ u_0(x) = \sum_{j=1}^{2} C_j \exp\left( -\frac{(x-\nu_j)^2}{2\delta_j^2} \right). $$
 
 Параметры:
 
@@ -224,9 +188,7 @@ $$
 -   время: $N_t = 100$ шагов, $\Delta t = T/N_t$;
 -   шаг по времени должен удовлетворять условию устойчивости:
 
-$$
-\Delta t \leq \frac{h^2}{2\alpha}.
-$$
+$$ \Delta t \leq \frac{h^2}{2\alpha}. $$
 
 **Схема:**
 
@@ -244,13 +206,7 @@ $$
 
 Реализуйте **интерполяцию по ближайшему соседу** для сравнения:
 
-$$
-\widehat{u}(x,t)
-=
-u(x_i,t_j),
-\quad
-\text{где } (x_i,t_j) \text{ — ближайший узел сетки}.
-$$
+$$ \widehat{u}(x,t) = u(x_i,t_j), \quad \text{где } (x_i,t_j) \text{ — ближайший узел сетки}. $$
 
 Этот метод используется только как **ориентир** для оценки сложности задачи.
 
@@ -272,12 +228,7 @@ $$
 
 **Выходной слой:**
 
-$$
-\widehat{u}(x,t)
-=
-\sum_{k=1}^{p}
-\text{branch}_k \cdot \text{trunk}_k.
-$$
+$$ \widehat{u}(x,t) = \sum_{k=1}^{p} \text{branch}_k \cdot \text{trunk}_k. $$
 
 **Входные данные для Branch:**
 
@@ -318,63 +269,25 @@ $$
 
 **Относительная** $L^2$-ошибка:
 
-$$
-\varepsilon_{L^2}
-=
-\frac{
-\|u_{\text{pred}} - u_{\text{true}}\|_2
-}{
-\|u_{\text{true}}\|_2
-}.
-$$
+$$ \varepsilon_{L^2} = \frac{ \|u_{\text{pred}} - u_{\text{true}}\|_2 }{ \|u_{\text{true}}\|_2 }. $$
 
 **Максимальная ошибка:**
 
-$$
-\varepsilon_{\max}
-=
-\max_{i,j}
-\left|u_{\text{pred}}(x_i,t_j)-u_{\text{true}}(x_i,t_j)\right|.
-$$
+$$ \varepsilon_{\max} = \max_{i,j} \left|u_{\text{pred}}(x_i,t_j)-u_{\text{true}}(x_i,t_j)\right|. $$
 
 **Средняя абсолютная ошибка:**
 
-$$
-\varepsilon_{\text{MAE}}
-=
-\frac{1}{N_x N_t}
-\sum_{i,j}
-\left|u_{\text{pred}}(x_i,t_j)-u_{\text{true}}(x_i,t_j)\right|.
-$$
+$$ \varepsilon_{\text{MAE}} = \frac{1}{N_x N_t} \sum_{i,j} \left|u_{\text{pred}}(x_i,t_j)-u_{\text{true}}(x_i,t_j)\right|. $$
 
 ## 3.8. Дополнительные метрики
 
 **Ошибка в частотной области:**
 
-$$
-\varepsilon_{\text{freq}}
-=
-\frac{
-\|\mathcal{F}(u_{\text{pred}})-\mathcal{F}(u_{\text{true}})\|_2
-}{
-\|\mathcal{F}(u_{\text{true}})\|_2
-}.
-$$
+$$ \varepsilon_{\text{freq}} = \frac{ \|\mathcal{F}(u_{\text{pred}})-\mathcal{F}(u_{\text{true}})\|_2 }{ \|\mathcal{F}(u_{\text{true}})\|_2 }. $$
 
 **Сохранение энергии:**
 
-$$
-E(t)=\int_0^1 u(x,t)\,dx,
-\quad
-\varepsilon_E
-=
-\max_t
-\frac{
-\left|E_{\text{pred}}(t)-E_{\text{true}}(t)\right|
-}{
-\max_t |E_{\text{true}}(t)|
-}.
-$$
+$$ E(t)=\int_0^1 u(x,t)\,dx, \quad \varepsilon_E = \max_t \frac{ \left|E_{\text{pred}}(t)-E_{\text{true}}(t)\right| }{ \max_t |E_{\text{true}}(t)| }. $$
 
 ## 3.9. Сравнение моделей
 
@@ -426,21 +339,7 @@ $$
 2.  выполните $N_{\text{samples}} = 50$ инференсов с дропаутом;
 3.  вычислите среднее и стандартное отклонение:
 
-$$
-\mu(x,t)
-=
-\frac{1}{N}
-\sum_{k=1}^{N}
-u^{(k)}(x,t),
-\quad
-\sigma(x,t)
-=
-\sqrt{
-\frac{1}{N-1}
-\sum_{k=1}^{N}
-\left(u^{(k)}(x,t)-\mu(x,t)\right)^2
-}.
-$$
+$$ \mu(x,t) = \frac{1}{N} \sum_{k=1}^{N} u^{(k)}(x,t), \quad \sigma(x,t) = \sqrt{ \frac{1}{N-1} \sum_{k=1}^{N} \left(u^{(k)}(x,t)-\mu(x,t)\right)^2 }. $$
 
 4.  постройте карты неопределённости и сравните их с истинной ошибкой.
 

@@ -75,11 +75,7 @@
 
 Модель затухающего гармонического осциллятора задаётся уравнением:
 
-$$
-mx''+\mu x' + kx = 0
-\quad \Longrightarrow \quad
-x'' + 2\delta x' + \omega_0^2x = 0.
-$$
+$$ mx''+\mu x' + kx = 0 \quad \Longrightarrow \quad x'' + 2\delta x' + \omega_0^2x = 0. $$
 
 Тип затухания определяется вариантом на основе соотношения $\delta$ и $\omega_0$:
 
@@ -91,25 +87,11 @@ $$
 
 Пусть $f_{PINN}(t, \theta)$ — предсказание нейросети. Итоговая функция потерь на $N$ коллокационных точках и $M$ точках зашумлённых данных имеет вид:
 
-$$
-\begin{aligned}
-\mathcal{L}(\theta,\text{параметр}) = {} &
-\lambda_0(f_{PINN}(t_0,\theta)-x(t_0))^2
-+ \lambda_1\left(\frac{d}{dt}f_{PINN}(t_0,\theta)-x'(t_0)\right)^2 \\
-& + \frac{1}{N}\sum_{i=1}^{N}\left[R(t_i;\theta,\text{параметр})\right]^2
-+ \frac{\lambda}{M}\sum_{j=1}^{M}(f_{PINN}(t_j,\theta)-y_j)^2.
-\end{aligned}
-$$
+$$ \begin{aligned} \mathcal{L}(\theta,\text{параметр}) = {} & \lambda_0(f_{PINN}(t_0,\theta)-x(t_0))^2 + \lambda_1\left(\frac{d}{dt}f_{PINN}(t_0,\theta)-x'(t_0)\right)^2 \\ & + \frac{1}{N}\sum_{i=1}^{N}\left[R(t_i;\theta,\text{параметр})\right]^2 + \frac{\lambda}{M}\sum_{j=1}^{M}(f_{PINN}(t_j,\theta)-y_j)^2. \end{aligned} $$
 
 Невязка физического уравнения определяется как:
 
-$$
-R(t_i)
-=
-\frac{d^2}{dt^2}f_{PINN}(t_i,\theta)
-+ 2\delta \frac{d}{dt}f_{PINN}(t_i,\theta)
-+ \omega_0^2 f_{PINN}(t_i,\theta).
-$$
+$$ R(t_i) = \frac{d^2}{dt^2}f_{PINN}(t_i,\theta) + 2\delta \frac{d}{dt}f_{PINN}(t_i,\theta) + \omega_0^2 f_{PINN}(t_i,\theta). $$
 
 ## 2.4. Варианты лабораторной работы
 
@@ -161,16 +143,7 @@ $$
 
 -   относительную ошибку восстановления скрытого физического параметра:
 
-$$
-\varepsilon_{\text{param}}
-=
-\frac{
-\left|\text{параметр}_{\text{true}}-\text{параметр}_{\text{pred}}\right|
-}{
-\text{параметр}_{\text{true}}
-}
-\times 100\%;
-$$
+$$ \varepsilon_{\text{param}} = \frac{ \left|\text{параметр}_{\text{true}}-\text{параметр}_{\text{pred}}\right| }{ \text{параметр}_{\text{true}} } \times 100\%; $$
 
 -   среднеквадратичную ошибку траектории (MSE).
 
