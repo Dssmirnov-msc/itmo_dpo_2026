@@ -425,7 +425,14 @@ $$ \varepsilon=\frac{\|u_{\mathrm{pred}}-u_{\mathrm{test}}\|_2}{\|u_{\mathrm{tes
 
 # 8. Статьи и программные инструменты
 
-## 8.1. Программные инструменты
+## 8.1. Статьи
+
+-   Фанасков В.С., Оселедец И.В. Спектральные нейронные операторы // Доклады Российской академии наук. Математика, информатика, процессы управления. 2023. Т. 514, № 2. С. 72-79. <https://sciencejournals.ru/view-article/?j=danmiupy=2023v=514n=2a=DANMIUp2360142Fanaskov>
+-   Karniadakis G.E., Kevrekidis I.G., Lu L., Perdikaris P., Wang S., Yang L. Physics-informed machine learning // Nature Reviews Physics. 2021. Vol. 3. P. 422-440. <https://www.nature.com/articles/s42254-021-00314-5>
+-   Li Z., Kovachki N., Azizzadenesheli K., Liu B., Bhattacharya K., Stuart A., Anandkumar A. Fourier neural operator for parametric partial differential equations // International Conference on Learning Representations (ICLR). 2021. <https://arxiv.org/pdf/2010.08895>
+-   Kovachki N., Li Z., Liu B., Azizzadenesheli K., Bhattacharya K., Stuart A., Anandkumar A. Neural Operator: Learning Maps Between Function Spaces With Applications to PDEs // Journal of Machine Learning Research. 2022. Vol. 23. Article 179. P. 1-97. <https://arxiv.org/abs/2108.08481>
+
+## 8.2. Программные инструменты
 
 -   Python 3.10+;
 -   Jupyter Notebook;
@@ -435,7 +442,7 @@ $$ \varepsilon=\frac{\|u_{\mathrm{pred}}-u_{\mathrm{test}}\|_2}{\|u_{\mathrm{tes
 -   PyTorch;
 -   `neuraloperator`.
 
-## 8.2. Библиотеки Python
+## 8.3. Библиотеки Python
 
 ### `numpy`
 
@@ -451,7 +458,7 @@ $$ \varepsilon=\frac{\|u_{\mathrm{pred}}-u_{\mathrm{test}}\|_2}{\|u_{\mathrm{tes
 
 ### `neuraloperator`
 
-Используется как готовая библиотека для модели FNO2d.
+Используется как готовая библиотека для модели FNO2d. Репозиторий: <https://github.com/neuraloperator/neuraloperator>.
 
 ### `matplotlib`
 
