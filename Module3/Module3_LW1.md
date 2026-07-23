@@ -215,18 +215,9 @@ $$ \varepsilon_{\text{param}} = \frac{ \left|\text{параметр}_{\text{true
 ## 8.1. Статьи
 
 1.  Raissi M., Perdikaris P., Karniadakis G. E. *Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations* // Journal of Computational Physics. 2019. Vol. 378. P. 686-707.
-2.  Открытый репозиторий туториалов NABLA-SciML. URL: <https://github.com>
-3.  Воркшоп по моделированию осциллятора (Introduction to PINNs). URL: <https://github.com>
+2.  Открытый репозиторий туториалов NABLA-SciML. URL: <https://github.com/jdtoscano94/Learning-Scientific_Machine_Learning_Residual_Based_Attention_PINNs_PIKANs_DeepONets>
+3.  Воркшоп по моделированию осциллятора (Introduction to PINNs) в составе материалов NABLA-SciML. URL: <https://github.com/jdtoscano94/Learning-Scientific_Machine_Learning_Residual_Based_Attention_PINNs_PIKANs_DeepONets>
 
-## 8.2. Библиотеки Python
+## 8.2. Python
 
-**Обязательные:**
-
--   `numpy`, `scipy` — численные методы;
--   `torch` или `tensorflow` — нейронные сети;
--   `matplotlib`, `seaborn` — визуализация.
-
-**Дополнительные:**
-
--   `deepxde` — DeepONet и PINNs.
 ------------------------------------------------------------------------
